@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Delete {{ movie.title }}
+{% endblock %}
+
+{% block content %}
+  <style>
+    .movie-confirm {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .movie-confirm p {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333; /* Светло-тёмный текст для контраста с белым фоном */
+    }
+    
+    .movie-video {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .movie-title {
+      font-size: 2em;
+      margin: 10px 0;
+      color: #000; /* Чёрный текст для заголовка */
+    }
+    
+    .movie-description {
+      font-size: 1em;
+      margin: 10px 0;
+      color: #333; /* Тёмно-серый текст для описания */
+    }
+    
+    .movie-category,
+    .movie-channel,
+    .movie-uploaded {
+      font-size: 0.9em;
+      margin: 5px 0;
+      color: #666; /* Средне-серый текст для метаданных */
+    }
+    
+    .movie-actions {
+      margin-top: 20px;
+    }
+    
+    .delete-button,
+    .cancel-button {
+      padding: 10px 15px;
+      border-radius: 5px;
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+      font-size: 1em;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .delete-button {
+      background-color: #dc3545;
+    }
+    
+    .delete-button:hover {
+      background-color: #c82333;
+      transform: scale(1.05);
+    }
+    
+    .delete-button:active {
+      background-color: #bd2130;
+    }
+    
+    .cancel-button {
+      background-color: #007bff;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+    
+    .cancel-button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+    
+    .cancel-button:active {
+      background-color: #00409a;
+    }
+  </style>
+
+  <div class="movie-confirm">
+    <h2 class="movie-title">{{ movie.title }}</h2>
+    <p class="movie-description">Release Date: {{ movie.release_date }}</p>
+    <p class="movie-description">Description: {{ movie.description }}</p>
+    <video class="movie-video" controls>
+      <source src="{{ movie.video_file.url }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="movie-actions">
+      <a href="{% url 'movie_delete' movie.id %}" class="delete-button">Delete</a>
+      <a href="{% url 'movie_list' %}" class="cancel-button">Cancel</a>
+    </div>
+  </div>
+{% endblock %}

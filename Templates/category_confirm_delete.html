@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Delete Category
+{% endblock %}
+
+{% block content %}
+  <style>
+    .delete-category-container {
+      max-width: 600px;
+      margin: 2em auto;
+      padding: 2em;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 8px 30px rgba(0, 0, 0, 0.25);
+      background: linear-gradient(145deg, #f9f9f9, #ffffff);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+    
+    .delete-category-container h2 {
+      margin-bottom: 1em;
+      color: #333;
+      font-family: 'Arial', sans-serif;
+      font-size: 1.8em;
+    }
+    
+    .delete-category-container p {
+      margin-bottom: 2em;
+      font-size: 1.2em;
+      color: #555;
+    }
+    
+    .delete-category-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+    
+    .delete-category-container form button,
+    .delete-category-container a {
+      padding: 0.8em;
+      border-radius: 5px;
+      font-size: 1em;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    
+    .delete-category-container form button {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .delete-category-container form button:hover {
+      background-color: #c82333;
+      transform: scale(1.05);
+    }
+    
+    .delete-category-container form button:active {
+      background-color: #bd2130;
+    }
+    
+    .delete-category-container a {
+      width: 96%;
+      background-color: #007bff;
+      margin-top: 10px;
+      color: #fff;
+    }
+    
+    .delete-category-container a:hover {
+      background-color: #0056b3;
+      background-color: #1a0865;
+      transform: scale(1.05);
+    }
+    
+    .delete-category-container a:active {
+      background-color: #00409a;
+    }
+  </style>
+
+  <div class="delete-category-container">
+    <h2>Delete Category</h2>
+    <p>Are you sure you want to delete "{{ category.name }}"?</p>
+    <form action="{% url 'category_delete' category.pk %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'category_list' %}">Cancel</a>
+  </div>
+{% endblock %}

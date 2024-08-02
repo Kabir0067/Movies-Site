@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}Category List{% endblock %}
+
+{% block content %}
+<style>
+    .category-container {
+        max-width: 800px;
+        margin: 2em auto;
+        padding: 2em;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 8px 30px rgba(0, 0, 0, 0.15);
+        background: linear-gradient(145deg, #5e5d5d, #959292);
+        
+    }
+
+    .category-container h2 {
+        text-align: center;
+        color: #333;
+        font-family: 'Arial', sans-serif;
+        margin-bottom: 1.5em;
+    }
+
+    .add-category {
+        display: inline-block;
+        margin-bottom: 1.5em;
+        padding: 12px 20px;
+        background-color: #007bff;
+        color: #ffffff;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 1.1em;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .add-category:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    .add-category:active {
+        background-color: #00409a;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1em;
+    }
+
+    table th,
+    table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+    }
+
+
+    .edit-button,
+    .delete-button {
+        padding: 8px 12px;
+        border-radius: 5px;
+        text-align: center;
+        color: #ffffff;
+        font-size: 0.9em;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .edit-button {
+        background-color: #28a745;
+        text-decoration: none;
+    }
+
+    .edit-button:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+    }
+
+    .edit-button:active {
+        background-color: #1e7e34;
+    }
+
+    .delete-button {
+        background-color: #dc3545;
+        border: none;
+        cursor: pointer;
+    }
+
+    .delete-button:hover {
+        background-color: #c82333;
+        transform: scale(1.05);
+    }
+
+    .delete-button:active {
+        background-color: #bd2130;
+    }
+    
+    .actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .delete-form {
+        display: inline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .category-container {
+            padding: 1em;
+        }
+
+        .add-category {
+            padding: 10px 15px;
+            font-size: 1em;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+        }
+
+        .edit-button,
+        .delete-button {
+            padding: 6px 10px;
+            font-size: 0.8em;
+        }
+    }
+</style>
+
+<div class="category-container">
+    <h2>Categories</h2>
+    <a href="{% url 'category_create' %}" class="add-category">Add Category</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Category Name</th>
+                <th style="text-align: center;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td style="border-right: 0.5px solid #ddd; color: #222;"><a style="color: #222; text-decoration: none;" href="{% url 'category_detail' category.pk %}">{{ category.name }}</a>                </td>
+                
+                <td class="actions">
+                    <a style="color: #9cdc07;" href="{% url 'category_update' category.pk %}" class="edit-button">Edit</a>
+                    <form method="post" action="{% url 'category_delete' category.pk %}" class="delete-form">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

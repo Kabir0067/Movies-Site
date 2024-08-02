@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    
+ 
+
+    .main-content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .login-container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        box-sizing: border-box;
+    }
+
+    .login-container h1 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .login-container form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .login-container form input {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .login-container form button {
+        background: #4ca1af;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+
+    .login-container form button:hover {
+        background: #2c3e50;
+    }
+
+    .sign-up-link {
+        display: inline-block;
+        margin-top: 10px;
+        color: #4ca1af;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .sign-up-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
+
+<div class="main-content">
+    <div class="login-container">
+        <h1>Sign up</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign up</button>
+            <a href="{% url 'login' %}" class="sign-up-link">LOG IN</a>
+        </form>
+    </div>
+</div>
+{% endblock content %}

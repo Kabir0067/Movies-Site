@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Delete Movie{% endblock %}
+{% block content %}
+<style>
+    .delete-confirmation {
+        max-width: 500px;
+        margin: 2em auto;
+        padding: 2em;
+        border-radius: 8px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 8px 30px rgba(0, 0, 0, 0.25);
+        background: #ffffff;
+        text-align: center;
+        background: linear-gradient(145deg, #f9f9f9, #ffffff);  
+    }
+
+    .delete-confirmation h2 {
+        margin-bottom: 1em;
+        font-size: 1.5em;
+        color: #333;
+    }
+
+    .delete-confirmation form {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .delete-confirmation button,
+    .delete-confirmation a {
+        padding: 1em;
+        border-radius: 4px;
+        font-size: 1em;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .delete-confirmation button {
+        background-color: #d9534f;  
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;  
+    }
+
+    .delete-confirmation button:hover {
+        background-color: #c9302c;  
+        transform: scale(1.05);  
+    }
+
+    .delete-confirmation button:active {
+        background-color: #ac2925;  
+    }
+
+    .delete-confirmation a {
+        background-color: #5bc0de;  
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  
+    }
+
+    .delete-confirmation a:hover {
+        background-color: #31b0d5;  
+        transform: scale(1.05);  
+    }
+
+    .delete-confirmation a:active {
+        background-color: #1f8dd6;  
+    }
+</style>
+
+<div class="delete-confirmation">
+    <h2>Are you sure you want to delete "{{ movie.title }}"?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'movie_detail' movies.pk %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}
